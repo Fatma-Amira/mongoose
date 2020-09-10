@@ -34,11 +34,11 @@ router.post('/addPersons',(req, res) => {
 })
 
 
-//Use model.findOne() to Return a Single Matching Document from Your Database
-router.get('/Person/:id', (req, res, next) => {
-    Person.findOne({
-      _id: req.params.id
-    }).then(Persons=>{res.send(Persons)})
+ // find person by his favorite food 
+ router.get('/Person/:id', (req, res, next) => {
+    Person.findOne(
+      {favoriteFood: 'libanais'}
+    ).then(Persons=>{res.send(Persons)})
     .catch(err=>console.log(err))
   });
     
@@ -59,7 +59,7 @@ router.get('/Person/:id', (req, res, next) => {
   
     Person.findById({_id})    
      .then(
-         Persons=>{person.favoriteFoods.push("hamburger")
+         Persons=>{person.favoriteFoods.push(foodToAdd)
   
              res.send(Persons)})
 
@@ -75,7 +75,7 @@ router.get('/Person/:id', (req, res, next) => {
   router.put('/editPerson/:_name',(req, res) => {
   const {_name}=req.params
     const {name , age ,favoriteFoods}= req.body
-    Person.findOneAndUpdate({_name},{ $set:{name , age ,favoriteFoods}})
+    Person.findOneAndUpdate({_name},{ $set:{ age:20}})
         
       .then(Persons=>{res.send(Persons)})
     .catch(err=>console.log(err))
